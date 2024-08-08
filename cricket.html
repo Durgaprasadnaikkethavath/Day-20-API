@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cricket</title>
+  </head>
+  <style>
+    h1 {
+      text-align: center;
+      text-transform: uppercase;
+      background-color: #f0f0f0;
+      padding: 20px;
+      color: burlywood;
+    }
+    #cricket_ranking {
+      padding: 20px;
+      background-image: url("https://www.afp.com/sites/default/files/afp-sport2-cricket-wc.jpg");
+      background-size: cover;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+    .cricketStyle {
+      width: 200px;
+      height: 250px;
+      border: 1px solid green;
+      background-color: rgba(55, 55, 55, 0.6);
+    }
+    .cricketStyle p {
+      color: white;
+    }
+  </style>
+  <body>
+    <h1>men's cricket Ranking</h1>
+    <div id="cricket_ranking"></div>
+
+    <script>
+      fetch("http://localhost:3100/menCricket")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+
+          const cricket_ranking = document.getElementById("cricket_ranking");
+
+          data.forEach((player) => {
+            const data_div = document.createElement("div");
+
+            data_div.classList.add("cricketStyle");
+
+            data_div.innerHTML = `
+        <p>${player.name}</p>
+        <p>${player.ranking}</p>
+        <p>${player.runs}</p>
+        <p>${player.balls}</p>
+        <p>${player.fours}</p>
+        <p>${player.opposition}</p>
+        `;
+            cricket_ranking.appendChild(data_div);
+          });
+        });
+    </script>
+  </body>
+</html>
